@@ -10,14 +10,13 @@ from tl_fairness.tlfair.superlearner import *
 from tl_fairness.tlfair.knncmi import *
 from tl_fairness.experiments.cmi_helper import *
 
-weights = [0, 1, 2, 3, 4]
-sizes = [500, 1000, 2500, 5000]
-n_truth = 10000
-sims = 20
+weights = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+sizes = [500, 750, 1000, 1750, 2500, 3750, 5000, 7500, 10000]
+n_truth = 1000000
+sims = 100
 rng = np.random.default_rng()
 results = pd.DataFrame()
 truth_dict = dict()
-
 
 for i in range(len(weights)):
     c = weights[i]
@@ -62,4 +61,5 @@ for i in range(len(sizes)):
     compare_results = pd.concat([compare_results,res])
 
 compare_results.to_csv('cmi_compare.csv')
-pickle.dump(truth_dict, "truth_dict.pkl")
+with open('truth_dict.pkl', 'wb') as f:
+    pickle.dump(truth_dict, f)
