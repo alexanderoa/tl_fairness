@@ -5,10 +5,10 @@ import sys
 import pickle
 
 sys.path.append('..')
-from tlfair.metrics import *
-from tlfair.superlearner import *
-from tlfair.knncmi import *
-from experiments.cmi_helper import *
+from tl_fairness.tlfair.metrics import *
+from tl_fairness.tlfair.superlearner import *
+from tl_fairness.tlfair.knncmi import *
+from tl_fairness.experiments.cmi_helper import *
 
 weights = [0, 1, 2, 3, 4]
 sizes = [500, 1000, 2500, 5000]

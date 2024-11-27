@@ -4,9 +4,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 import sys
 
 sys.path.append('..')
-from tlfair.metrics import *
-from tlfair.superlearner import *
-from tlfair.knncmi import *
+from tl_fairness.tlfair.metrics import *
+from tl_fairness.tlfair.superlearner import *
+from tl_fairness.tlfair.knncmi import *
 
 def cmi_sim(
     n,
