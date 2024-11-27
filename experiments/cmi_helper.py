@@ -175,5 +175,5 @@ def cmi_compare(
                 "top_five" : [np.quantile(cmi_res, 0.95), np.quantile(sep_res, 0.95), np.quantile(knn_res, 0.95)]
             }
         )
-        df = df.append(data)
+        df = pd.concat([df,data])
     return df

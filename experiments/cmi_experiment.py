@@ -45,7 +45,7 @@ for i in range(len(weights)):
                 "coverage" : [r[0]]
             }
         )
-        results = results.append(here)
+        results = pd.concat([results,here])
 
 results.to_csv('cmi_coverage.csv')
 
@@ -59,7 +59,7 @@ for i in range(len(sizes)):
         repeats = 10,
         rng = rng
     )
-    compare_results = compare_results.append(res)
+    compare_results = pd.concat([compare_results,res])
 
 compare_results.to_csv('cmi_compare.csv')
 pickle.dump(truth_dict, "truth_dict.pkl")
