@@ -8,8 +8,8 @@ import sys
 import pickle
 
 sys.path.append('..')
-from tlfair.metrics import *
-from tlfair.superlearner import *
+from tl_fairness.tlfair.metrics import *
+from tl_fairness.tlfair.superlearner import *
 
 law = pd.read_csv(
     "https://raw.githubusercontent.com/tailequy/fairness_dataset/refs/heads/main/experiments/data/law_school_clean.csv"
@@ -47,6 +47,11 @@ results['importance'] = dict()
 for i in range(len(metrics)):
     metric = metrics[i]
     title = metric_title[i]
+    if title == 'cmi':
+        outcome = HistGradientBoostingClassifier()
+    else:
+        outcome = SuperLearnerClassifier()
+    
     inference = metric(
         xtr = xtr,
         xte = xte,
@@ -54,7 +59,7 @@ for i in range(len(metrics)):
         yte = yte,
         gtr = gtr,
         gte = gte,
-        outcome = SuperLearnerClassifier(),
+        outcome = outcome,
         propensity = SuperLearnerClassifier(),
     )
     importance = perm_importance(
@@ -70,3 +75,6 @@ for i in range(len(metrics)):
     )
     results['inference'][title] = inference
     results['importance'][title] = importance
+    
+with open('law_results.pkl', 'wb') as f:
+    pickle.dump(results, f)

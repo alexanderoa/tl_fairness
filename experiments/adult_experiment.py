@@ -8,8 +8,8 @@ import sys
 import pickle
 
 sys.path.append('..')
-from tlfair.metrics import *
-from tlfair.superlearner import *
+from tl_fairness.tlfair.metrics import *
+from tl_fairness.tlfair.superlearner import *
 
 adult = pd.read_csv(
     "https://raw.githubusercontent.com/socialfoundations/folktables/main/adult_reconstruction.csv"
@@ -60,6 +60,11 @@ results['importance'] = dict()
 for i in range(len(metrics)):
     metric = metrics[i]
     title = metric_title[i]
+    if title == 'cmi':
+        outcome = HistGradientBoostingClassifier()
+    else:
+        outcome = SuperLearnerClassifier()
+    
     inference = metric(
         xtr = xtr,
         xte = xte,
@@ -67,7 +72,7 @@ for i in range(len(metrics)):
         yte = yte,
         gtr = gtr,
         gte = gte,
-        outcome = SuperLearnerClassifier(),
+        outcome = outcome,
         propensity = SuperLearnerClassifier(),
     )
     importance = perm_importance(
@@ -83,4 +88,6 @@ for i in range(len(metrics)):
     )
     results['inference'][title] = inference
     results['importance'][title] = importance
-    
+
+with open('adult_results.pkl', 'wb') as f:
+    pickle.dump(results, f)
