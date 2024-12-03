@@ -44,6 +44,7 @@ metric_title = [
 results = dict()
 results['inference'] = dict()
 results['importance'] = dict()
+print('Beginning Law Experiment')
 for i in range(len(metrics)):
     metric = metrics[i]
     title = metric_title[i]
@@ -71,7 +72,8 @@ for i in range(len(metrics)):
         gte = gte,
         outcome = HistGradientBoostingClassifier(),
         propensity= HistGradientBoostingClassifier(),
-        metric = metrics[i]
+        metric = metrics[i],
+        n_samples = 1000
     )
     results['inference'][title] = inference
     results['importance'][title] = importance
