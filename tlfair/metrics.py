@@ -230,9 +230,7 @@ def perm_importance(
     for col in seq:
         importance[col] = 0
         
-    count = 1
     for perm in perms:
-        print(count + "/" + n_samples)
         prev = 0
         v = []
         for i in range(len(perm)):
